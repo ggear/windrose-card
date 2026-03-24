@@ -83,13 +83,13 @@ export class HAMeasurementProvider {
                 if (HAMeasurementProvider.hasValue(value) && HAMeasurementProvider.isNumeric(value)) {
                     measurements.push(Measurement.fromHistory(data));
                 } else {
-                    Log.warn(`Value from ${entity} ignored: `, data);
+                    Log.debug(`Value from ${entity} ignored: `, data);
                 }
             } else {
                 if (HAMeasurementProvider.hasValue(value)) {
                     measurements.push(Measurement.fromHistory(data));
                 } else {
-                    Log.warn(`Value from ${entity} ignored: `, data);
+                    Log.debug(`Value from ${entity} ignored: `, data);
                 }
             }
         }
@@ -108,13 +108,13 @@ export class HAMeasurementProvider {
                 if (HAMeasurementProvider.hasValue(value) && HAMeasurementProvider.isNumeric(value)) {
                     measurements.push(Measurement.fromStats(data));
                 } else {
-                    Log.warn(`Value from ${entity} ignored: `, data);
+                    Log.debug(`Value from ${entity} ignored: `, data);
                 }
             } else {
                 if (HAMeasurementProvider.hasValue(value)) {
                     measurements.push(Measurement.fromStats(data));
                 } else {
-                    Log.warn(`Value from ${entity} ignored: `, data);
+                    Log.debug(`Value from ${entity} ignored: `, data);
                 }
             }
         }

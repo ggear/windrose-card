@@ -235,7 +235,6 @@ export class WindBarRenderer {
             const percText = `${Math.round(percentages[index])}%`;
             const percentageTextColor = this.getPercentageTextColor(this.cardColors.barPercentages, this.speedRanges[index].color);
             const percLength = this.svgUtil.getTextLength(percText, this.windSpeedEntityConfig.barPercentageTextSize);
-            console.log(segmentPosition, percLength, startY, endY);
             if (percentages[index] > 0 && segmentPosition.length > -this.windSpeedEntityConfig.barPercentageTextSize) {
 
                 const tooltipCenter = this.determineTooltipPositionRightBar(startY, endY, (this.windSpeedEntityConfig.barPercentageTextSize + 10) / 2, segmentPosition.center);
