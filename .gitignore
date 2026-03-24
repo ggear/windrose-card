@@ -1,6 +1,7 @@
 # Project exclude paths
-/build/
+/dist/
 /node_modules/
 .idea
 /ha-windrose-card-project.iml
 /coverage/
+CLAUDE.md
