@@ -8,7 +8,7 @@
     "http-server": "http-server ./",
     "lint": "npx  eslint .",
     "build-watch": "rollup -c --watch --no-cache",
-    "build": "rimraf build && tsc && rollup -c",
+    "build": "rimraf dist && tsc && rollup -c",
     "rollup": "rollup -c",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

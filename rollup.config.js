@@ -18,7 +18,7 @@ export default {
         format: 'es',
         name: 'windroseCardBundle',
         treeshake: false,
-        file: '../../../Docker/ha/config/www/community/lovelace-windrose-card/windrose-card.js'
+        file: 'dist/windrose-card.js'
     },
     plugins: [
         multi(),
