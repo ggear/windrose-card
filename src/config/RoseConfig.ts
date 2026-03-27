@@ -15,6 +15,7 @@ export class RoseConfig {
         public readonly windRoseDrawNorthOffset: number,
         public readonly firstSegmentInLeaves: boolean,
         public readonly centerCircleConfig: CenterCircleConfig,
+        public readonly showCircleLegend: boolean,
         public readonly circleCount: number | undefined,
         public readonly outerCirclePercentage: number | undefined) {
     }
@@ -39,10 +40,11 @@ export class RoseConfig {
         const roseOpacity = ConfigCheckUtils.checkNummerOrDefault(cardConfig?.rose_opacity, 1);
         const clipBackgroundImage = ConfigCheckUtils.checkBooleanDefaultFalse(cardConfig?.clip_background_image);
         const circleLegendTextSize = ConfigCheckUtils.checkNummerOrDefault(cardConfig?.circle_legend_text_size, 30);
+        const showCircleLegend = ConfigCheckUtils.checkBooleanDefaultTrue(cardConfig?.show_circle_legend);
         const circleCount = ConfigCheckUtils.checkNumberOrUndefined("circle_count", cardConfig?.circle_count);
         const outerCirclePercentage = ConfigCheckUtils.checkNumberOrUndefined("outer_circle_percentage", cardConfig?.outer_circle_percentage);
         return new RoseConfig(windDirectionCount, backgroundImage, roseOpacity, clipBackgroundImage, circleLegendTextSize,
-            windRoseDrawNorthOffset, firstSegmentInLeaves, centerCircleConfig, circleCount, outerCirclePercentage)
+            windRoseDrawNorthOffset, firstSegmentInLeaves, centerCircleConfig, showCircleLegend, circleCount, outerCirclePercentage)
     }
 
     private static checkWindRoseDrawNorthOffset(windrose_draw_north_offset: number | undefined): number {

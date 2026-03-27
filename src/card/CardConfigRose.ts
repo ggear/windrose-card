@@ -12,6 +12,7 @@ export interface CardConfigRose {
     first_segment_in_leaves: boolean | undefined;
     center_calm_percentage: boolean | undefined;
     center_circle: CardConfigCenterCircle;
+    show_circle_legend: boolean | undefined;
 
     circle_count: number | undefined;
     outer_circle_percentage: number | undefined

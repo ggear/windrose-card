@@ -33,6 +33,7 @@ export class WindRoseRendererCenterCalm implements WindRoseRenderer {
     private readonly leaveArc: number;
     private readonly centerCircleConfig: CenterCircleConfig;
     private readonly roseOpacity: number;
+    private readonly showCircleLegend: boolean;
     svgUtil!: SvgUtil;
     windRoseData!: WindRoseData;
     private readonly roseCenter: Coordinate;
@@ -56,6 +57,7 @@ export class WindRoseRendererCenterCalm implements WindRoseRenderer {
         this.cardColors = config.cardColor;
         this.circleLegendTextSize = config.roseConfig.circleLegendTextSize;
         this.centerCircleConfig = config.roseConfig.centerCircleConfig;
+        this.showCircleLegend = config.roseConfig.showCircleLegend;
         this.svg = svg;
         this.svgUtil = new SvgUtil(svg);
         this.dimensionCalculator = dimensionCalculator;
@@ -109,7 +111,9 @@ export class WindRoseRendererCenterCalm implements WindRoseRenderer {
 
         this.roseGroup.add(this.roseCircles).add(this.leavesGroup);
 
-        this.circleLegend = this.drawCircleLegend();
+        if (this.showCircleLegend) {
+            this.circleLegend = this.drawCircleLegend();
+        }
         this.centerZeroSpeedGroup = this.drawCenterZeroSpeed();
         //Animate show graph
         if (animate) {
@@ -140,7 +144,9 @@ export class WindRoseRendererCenterCalm implements WindRoseRenderer {
         this.log.method('removeGraphs');
         this.leavesGroup.remove();
         this.roseCircles.remove();
-        this.circleLegend.remove();
+        if (this.circleLegend) {
+            this.circleLegend.remove();
+        }
         this.centerZeroSpeedGroup.remove();
         this.roseDrawn = false;
     }
@@ -255,7 +261,7 @@ export class WindRoseRendererCenterCalm implements WindRoseRenderer {
              textColor = ColorUtil.getTextColorBasedOnBackground(this.speedRanges[0].color);
         }
         let text = undefined;
-        if (this.centerCircleConfig.enabled) {
+        if (this.showCircleLegend && this.centerCircleConfig.enabled) {
             text = this.templateParser.parse(this.centerCircleConfig.text!);
             const centerText = this.svgUtil.drawText2(center.x, center.y, text,
                 TextAttributes.windBarAttribute(textColor, this.centerCircleConfig.textSize, "middle", "middle"));
