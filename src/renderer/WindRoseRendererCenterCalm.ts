@@ -143,7 +143,7 @@ export class WindRoseRendererCenterCalm implements WindRoseRenderer {
         this.log.method('removeGraphs');
         this.leavesGroup.remove();
         this.roseCircles.remove();
-        this.circleLegend.remove();
+        this.circleLegend?.remove();
         this.centerZeroSpeedGroup.remove();
         this.roseDrawn = false;
     }

@@ -136,7 +136,7 @@ export class WindRoseRendererStandaard implements WindRoseRenderer {
         this.log.method('removeGraphs()');
         this.leavesGroup.remove();
         this.roseCircles.remove();
-        this.circleLegend.remove();
+        this.circleLegend?.remove();
         this.roseDrawn = false;
     }
 
