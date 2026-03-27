@@ -28,6 +28,7 @@ export class WindRoseRendererStandaard implements WindRoseRenderer {
     private readonly speedRangeService: SpeedRangeService;
     private readonly leaveArc: number;
     private readonly roseOpacity: number;
+    private readonly showCircleLegend: boolean;
     svgUtil!: SvgUtil;
     windRoseData!: WindRoseData;
     private readonly roseCenter: Coordinate;
@@ -48,6 +49,7 @@ export class WindRoseRendererStandaard implements WindRoseRenderer {
                 degreesCalculator: DegreesCalculator) {
         this.cardColors = config.cardColor;
         this.legendTextSize = config.roseConfig.circleLegendTextSize;
+        this.showCircleLegend = config.roseConfig.showCircleLegend;
         this.speedRangeService = speedRangeService;
         this.svg = svg;
         this.degreesCalculator = degreesCalculator;
@@ -101,7 +103,9 @@ export class WindRoseRendererStandaard implements WindRoseRenderer {
 
         this.roseGroup.add(this.roseCircles).add(this.leavesGroup);
 
-        this.circleLegend = this.drawCircleLegend();
+        if (this.showCircleLegend) {
+            this.circleLegend = this.drawCircleLegend();
+        }
 
         //Animate show graph
         if (animate) {

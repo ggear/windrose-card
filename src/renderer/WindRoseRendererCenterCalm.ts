@@ -32,6 +32,7 @@ export class WindRoseRendererCenterCalm implements WindRoseRenderer {
     private readonly leaveArc: number;
     private readonly centerRadius: number;
     private readonly roseOpacity: number;
+    private readonly showCircleLegend: boolean;
     svgUtil!: SvgUtil;
     windRoseData!: WindRoseData;
     private readonly roseCenter: Coordinate;
@@ -54,6 +55,7 @@ export class WindRoseRendererCenterCalm implements WindRoseRenderer {
                 degreesCalculator: DegreesCalculator) {
         this.cardColors = config.cardColor;
         this.circleLegendTextSize = config.roseConfig.circleLegendTextSize;
+        this.showCircleLegend = config.roseConfig.showCircleLegend;
         this.centerRadius = GlobalConfig.defaultCenterCalmPercenteCircleSize;
         this.speedRangeService = speedRangeService;
         this.svg = svg;
@@ -108,7 +110,9 @@ export class WindRoseRendererCenterCalm implements WindRoseRenderer {
 
         this.roseGroup.add(this.roseCircles).add(this.leavesGroup);
 
-        this.circleLegend = this.drawCircleLegend();
+        if (this.showCircleLegend) {
+            this.circleLegend = this.drawCircleLegend();
+        }
         this.centerZeroSpeedGroup = this.drawCenterZeroSpeed();
         //Animate show graph
         if (animate) {
@@ -253,7 +257,7 @@ export class WindRoseRendererCenterCalm implements WindRoseRenderer {
         if (textColor === 'auto') {
              textColor = ColorUtil.getTextColorBasedOnBackground(this.speedRanges[0].color);
         }
-        if (!isNaN(this.windRoseData.speedRangePercentages[0])) {
+        if (this.showCircleLegend && !isNaN(this.windRoseData.speedRangePercentages[0])) {
             const centerText = this.svgUtil.drawText2(center.x, center.y, Math.round(this.windRoseData.speedRangePercentages[0]) + '%',
                 TextAttributes.windBarAttribute(textColor, 40, "middle", "middle"));
             centerZeroSpeedGroup.add(centerText);
