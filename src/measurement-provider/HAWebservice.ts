@@ -1,5 +1,5 @@
-import {HomeAssistant} from "../util/HomeAssistant";
-import {HARequestData} from "./HARequestData";
+import { HomeAssistant } from "../util/HomeAssistant";
+import { HARequestData } from "./HARequestData";
 
 export class HAWebservice {
 
@@ -8,7 +8,7 @@ export class HAWebservice {
 
     public getMeasurementData(startTime: Date, endTime: Date, requestData: HARequestData): Promise<any> {
         if (requestData.useStatistics) {
-            return this.getStatistics(startTime, endTime, [requestData.entity], requestData.statisticsPeriod!);
+            return this.getStatistics(startTime, endTime, [requestData.entity], requestData.statisticsPeriod!, requestData.statisticsType!);
         }
         return this.getHistory(startTime, endTime, [requestData.entity], requestData.attribute !== undefined);
     }
@@ -28,7 +28,7 @@ export class HAWebservice {
         return this.hass.callWS(historyMessage);
     }
 
-    private getStatistics(startTime: Date, endTime: Date, entities: string[], period: string): Promise<any> {
+    private getStatistics(startTime: Date, endTime: Date, entities: string[], period: string, type: string): Promise<any> {
         if (entities.length === 0) {
             return Promise.resolve({});
         }
@@ -38,7 +38,7 @@ export class HAWebservice {
             "end_time": endTime,
             "period": period,
             "statistic_ids": entities,
-            "types":["mean"]
+            "types":[type]
         }
         return this.hass.callWS(statisticsMessage);
     }

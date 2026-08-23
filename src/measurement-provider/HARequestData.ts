@@ -1,6 +1,6 @@
-import {WindDirectionEntity} from "../config/WindDirectionEntity";
-import {WindSpeedEntity} from "../config/WindSpeedEntity";
-import {Period} from "../config/buttons/Period";
+import { WindDirectionEntity } from "../config/WindDirectionEntity";
+import { WindSpeedEntity } from "../config/WindSpeedEntity";
+import { Period } from "../config/buttons/Period";
 
 export class HARequestData {
 
@@ -8,20 +8,21 @@ export class HARequestData {
         public entity: string,
         public attribute: string | undefined,
         public useStatistics: boolean,
-        public statisticsPeriod: string | undefined) {
+        public statisticsPeriod: string | undefined,
+        public statisticsType: string | undefined) {
     }
 
     static fromWindDirectionEntity(config: WindDirectionEntity, period: Period) {
         if (period.useStatistics !== undefined) {
-            return new HARequestData(config.entity, config.attribute, period.useStatistics, period.statisticsPeriod);
+            return new HARequestData(config.entity, config.attribute, period.useStatistics, period.statisticsPeriod, period.statisticsType);
         }
-        return new HARequestData(config.entity, config.attribute, config.useStatistics, config.statisticsPeriod);
+        return new HARequestData(config.entity, config.attribute, config.useStatistics, config.statisticsPeriod, config.statisticsType);
     }
 
     static fromWindSpeedEntity(config: WindSpeedEntity, period: Period) {
         if (period.useStatistics !== undefined) {
-            return new HARequestData(config.entity, config.attribute, period.useStatistics, period.statisticsPeriod);
+            return new HARequestData(config.entity, config.attribute, period.useStatistics, period.statisticsPeriod, period.statisticsType);
         }
-        return new HARequestData(config.entity, config.attribute, config.useStatistics, config.statisticsPeriod);
+        return new HARequestData(config.entity, config.attribute, config.useStatistics, config.statisticsPeriod, config.statisticsType);
     }
 }

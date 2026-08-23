@@ -2,6 +2,7 @@ export interface CardConfigDataPeriod {
 
     use_statistics: boolean;
     statistics_period: string;
+    statistics_type: string;
 
     preset_period: string;
 

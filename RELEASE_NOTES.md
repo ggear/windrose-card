@@ -1,3 +1,8 @@
+### v2.6.0
+Feature:
+- Adds the possibility to use min and max Home Assistant statistics data. Before only the mean value was used.  
+ Thanks sanchobear. Fixes #223
+
 ### v2.4.4
 Fix:
 - Adds target ES2017 to esbuld, to support older browsers. Fixes #222
