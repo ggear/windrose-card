@@ -1,9 +1,9 @@
-import {SpeedRange} from "../speed-range/SpeedRange";
-import {CardConfigWindSpeedEntity} from "../card/CardConfigWindSpeedEntity";
-import {GlobalConfig} from "./GlobalConfig";
-import {CardConfigSpeedRange} from "../card/CardConfigSpeedRange";
-import {ConfigCheckUtils} from "./ConfigCheckUtils";
-import {DynamicSpeedRange} from "./DynamicSpeedRange";
+import { SpeedRange } from "../speed-range/SpeedRange";
+import { CardConfigWindSpeedEntity } from "../card/CardConfigWindSpeedEntity";
+import { GlobalConfig } from "./GlobalConfig";
+import { CardConfigSpeedRange } from "../card/CardConfigSpeedRange";
+import { ConfigCheckUtils } from "./ConfigCheckUtils";
+import { DynamicSpeedRange } from "./DynamicSpeedRange";
 
 export class WindSpeedEntity {
 
@@ -13,6 +13,7 @@ export class WindSpeedEntity {
         public readonly name: string,
         public readonly useStatistics: boolean,
         public readonly statisticsPeriod: string,
+        public readonly statisticsType: string,
         public readonly barRenderScale: string,
         public readonly windspeedBarFull: boolean,
         public speedUnit: string,
@@ -44,6 +45,7 @@ export class WindSpeedEntity {
 
         const barRenderScale = this.checkBarRenderScale(entityConfig.bar_render_scale);
         const statsPeriod = ConfigCheckUtils.checkStatisticsPeriod(entityConfig.statistics_period);
+        const statsType = ConfigCheckUtils.checkStatisticsType(entityConfig.statistics_type);
         const currentSpeedArrow = ConfigCheckUtils.checkBooleanDefaultFalse(entityConfig.current_speed_arrow);
         const currentSpeedArrowSize = ConfigCheckUtils.checkNummerOrDefault(entityConfig.current_speed_arrow_size, 40);
         const currentSpeedArrowLocation = this.checkCurrentSpeedArrowLocation(entityConfig.current_speed_arrow_location, windspeedBarLocation);
@@ -66,7 +68,7 @@ export class WindSpeedEntity {
         this.checkSpeedRangeCombi(speedRanges, speedRangeStep, speedRangeMax, dynamicSpeedRanges, speedRangeBeaufort);
         this.checkAttribuutStatsCombi(useStatistics, entityConfig.attribute);
 
-        return new WindSpeedEntity(entity, entityConfig.attribute, name, useStatistics, statsPeriod, barRenderScale,
+        return new WindSpeedEntity(entity, entityConfig.attribute, name, useStatistics, statsPeriod, statsType, barRenderScale,
             windspeedBarFull, inputSpeedUnit, outputSpeedUnit,  outputSpeedUnitLabel, speedRangeBeaufort,
             speedRangeStep, speedRangeMax, speedRanges, dynamicSpeedRanges, currentSpeedArrow, currentSpeedArrowSize,
             currentSpeedArrowLocation, barLabelTextSize, barSpeedTextSize, barPercentageTextSize, compensationFactor,

@@ -13,14 +13,34 @@ export class Measurement {
 
     public static fromStats: (data: StatisticsData) => Measurement;
 
-    public static init(attribute: string | undefined, stats: boolean) {
+    public static init(attribute: string | undefined, stats: boolean, type: string | undefined) {
         if (stats) {
-            Measurement.fromStats = (stat: StatisticsData) => {
-                return new Measurement(stat.start / 1000, stat.end / 1000, stat.mean);
-            };
-            Measurement.getStatsValue = (stat: StatisticsData) => {
-                return stat.mean;
-            };
+            switch (type) {
+                case "min":
+                    Measurement.fromStats = (stat: StatisticsData) => {
+                        return new Measurement(stat.start / 1000, stat.end / 1000, stat.min);
+                    };
+                    Measurement.getStatsValue = (stat: StatisticsData) => {
+                        return stat.min;
+                    };
+                    break;
+                case "max":
+                    Measurement.fromStats = (stat: StatisticsData) => {
+                        return new Measurement(stat.start / 1000, stat.end / 1000,stat.max);
+                    };
+                    Measurement.getStatsValue = (stat: StatisticsData) => {
+                        return stat.max
+                    };
+                    break;
+                case "mean":
+                    Measurement.fromStats = (stat: StatisticsData) => {
+                        return new Measurement(stat.start / 1000, stat.end / 1000, stat.mean);
+                    };
+                    Measurement.getStatsValue = (stat: StatisticsData) => {
+                        return stat.mean;
+                    };
+                    break;
+            }
         } else {
             if (attribute) {
                 Measurement.fromHistory = (history: HistoryData) => {

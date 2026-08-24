@@ -1,10 +1,10 @@
-import {ButtonInterface} from "../ButtonInterface";
-import {ButtonBaseConfig} from "../ButtonBaseConfig";
-import {CardConfigButton} from "../../../card/CardConfigButton";
-import {ButtonColors} from "../ButtonColors";
-import {ConfigCheckUtils} from "../../ConfigCheckUtils";
-import {Period} from "../Period";
-import {PeriodCodeHelper} from "../../../util/PeriodCodeHelper";
+import { ButtonInterface } from "../ButtonInterface";
+import { ButtonBaseConfig } from "../ButtonBaseConfig";
+import { CardConfigButton } from "../../../card/CardConfigButton";
+import { ButtonColors } from "../ButtonColors";
+import { ConfigCheckUtils } from "../../ConfigCheckUtils";
+import { Period } from "../Period";
+import { PeriodCodeHelper } from "../../../util/PeriodCodeHelper";
 
 export class PeriodShiftPlayButton
     implements ButtonInterface {
@@ -45,8 +45,8 @@ export class PeriodShiftPlayButton
 
     getFirstPeriod(): Period {
         const endDate = PeriodCodeHelper.move(this.windowPeriod, this.period.startTime);
-        return new Period('play', this.period.useStatistics, this.period.statisticsPeriod, undefined,
-            undefined, undefined, undefined,
+        return new Period('play', this.period.useStatistics, this.period.statisticsPeriod,
+            this.period.statisticsType, undefined, undefined, undefined, undefined,
             undefined, this.period.startTime, endDate);
     }
 

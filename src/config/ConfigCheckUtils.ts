@@ -74,6 +74,15 @@ export class ConfigCheckUtils {
         throw new Error(`statistics_period ${period} is invalid, should be one of 5minute, hour, day, week, month, year`);
     }
 
+    public static checkStatisticsType(statsType: string | undefined | null): string {
+        if (statsType === undefined) {
+            return 'mean';
+        } else  if (statsType === 'min' || statsType === 'mean' || statsType === 'max') {
+            return statsType;
+        }
+        throw new Error(`statistics_period ${statsType} is invalid, should be one of min, mean or max`);
+    }
+
     public static checkDateString(date: string): boolean {
         // const isoRegex = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})$/;
         //

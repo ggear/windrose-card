@@ -1,5 +1,5 @@
-import {CardConfigSpeedRange} from "./CardConfigSpeedRange";
-import {CardConfigDynamicSpeedRange} from "./CardConfigDynamicSpeedRange";
+import { CardConfigSpeedRange } from "./CardConfigSpeedRange";
+import { CardConfigDynamicSpeedRange } from "./CardConfigDynamicSpeedRange";
 
 export interface CardConfigWindSpeedEntity {
     entity: string;
@@ -7,6 +7,7 @@ export interface CardConfigWindSpeedEntity {
     name: string;
     use_statistics: boolean;
     statistics_period: string;
+    statistics_type: string;
     windspeed_bar_full: boolean;
     speed_unit: string;
     use_for_windrose: boolean;

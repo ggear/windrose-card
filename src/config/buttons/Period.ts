@@ -1,10 +1,10 @@
-import {CardConfigDataPeriod} from "../../card/CardConfigDataPeriod";
-import {ButtonsConfig} from "./ButtonsConfig";
-import {PeriodSelectorButton} from "./types/PeriodSelectorButton";
-import {Log} from "../../util/Log";
-import {ConfigCheckUtils} from "../ConfigCheckUtils";
-import {PresetPeriodHelper} from "../../util/PresetPeriodHelper";
-import {PeriodCodeHelper} from "../../util/PeriodCodeHelper";
+import { CardConfigDataPeriod } from "../../card/CardConfigDataPeriod";
+import { ButtonsConfig } from "./ButtonsConfig";
+import { PeriodSelectorButton } from "./types/PeriodSelectorButton";
+import { Log } from "../../util/Log";
+import { ConfigCheckUtils } from "../ConfigCheckUtils";
+import { PresetPeriodHelper } from "../../util/PresetPeriodHelper";
+import { PeriodCodeHelper } from "../../util/PeriodCodeHelper";
 
 export class Period {
 
@@ -15,6 +15,7 @@ export class Period {
         public type: string,
         public readonly useStatistics: boolean | undefined,
         public readonly statisticsPeriod: string | undefined,
+        public readonly statisticsType: string | undefined,
         public presetPeriod: string | undefined,
         public periodBack: string | undefined,
         public fromHourOfDay: number | undefined,
@@ -31,7 +32,7 @@ export class Period {
     }
 
     clone(): Period {
-        return new Period(this.type, this.useStatistics,this.statisticsPeriod,  this.presetPeriod, this.periodBack, this.fromHourOfDay,
+        return new Period(this.type, this.useStatistics, this.statisticsPeriod, this.statisticsType, this.presetPeriod, this.periodBack, this.fromHourOfDay,
             this.fromPeriodAgo, this.toPeriodAgo, undefined, undefined);
     }
 
@@ -89,6 +90,7 @@ export class Period {
             this.checkDeprecations(config);
             const useStatistics = ConfigCheckUtils.checkBooleanDefaultUndefined(config.use_statistics);
             const statsPeriod = ConfigCheckUtils.checkStatisticsPeriod(config.statistics_period);
+            const statsType = ConfigCheckUtils.checkStatisticsType(config.statistics_type);
             let fromDate: Date | undefined;
             let toDate: Date | undefined;
             if (ConfigCheckUtils.checkString(config.preset_period)) {
@@ -119,7 +121,7 @@ export class Period {
             if (optionsSet > 1) {
                 throw new Error('Multiple period types set, use one type: preset-period, period_back, from_hours_of_day, time window, or date options.')
             }
-            return new Period(type, useStatistics, statsPeriod, config.preset_period, config.period_back, config.from_hour_of_day, config.from_period_ago,
+            return new Period(type, useStatistics, statsPeriod, statsType, config.preset_period, config.period_back, config.from_hour_of_day, config.from_period_ago,
                 config.to_period_ago, fromDate, toDate);
         }
         return undefined;
