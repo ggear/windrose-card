@@ -14,9 +14,9 @@ export class HARequestData {
 
     static fromWindDirectionEntity(config: WindDirectionEntity, period: Period) {
         if (period.useStatistics !== undefined) {
-            return new HARequestData(config.entity, config.attribute, period.useStatistics, period.statisticsPeriod, period.statisticsType);
+            return new HARequestData(config.entity, config.attribute, period.useStatistics, period.statisticsPeriod, 'mean');
         }
-        return new HARequestData(config.entity, config.attribute, config.useStatistics, config.statisticsPeriod, config.statisticsType);
+        return new HARequestData(config.entity, config.attribute, config.useStatistics, config.statisticsPeriod, 'mean');
     }
 
     static fromWindSpeedEntity(config: WindSpeedEntity, period: Period) {

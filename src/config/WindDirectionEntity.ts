@@ -8,7 +8,6 @@ export class WindDirectionEntity {
         public readonly attribute: string | undefined,
         public readonly useStatistics: boolean,
         public readonly statisticsPeriod: string | undefined,
-        public readonly statisticsType: string | undefined,
         public readonly directionCompensation: number,
         public readonly directionLetters: string | undefined,
     ) {}
@@ -22,11 +21,10 @@ export class WindDirectionEntity {
             const entity = entityConfig.entity;
             const useStatistics = ConfigCheckUtils.checkBooleanDefaultFalse(entityConfig.use_statistics);
             const statsPeriod = ConfigCheckUtils.checkStatisticsPeriod(entityConfig.statistics_period);
-            const statsType = ConfigCheckUtils.checkStatisticsType(entityConfig.statistics_type);
             const directionCompensation = this.checkDirectionCompensation(entityConfig.direction_compensation);
             const directionLetters = this.checkDirectionLetters(entityConfig.direction_letters);
             this.checkAttribuutStatsCombi(useStatistics, entityConfig.attribute);
-            return new WindDirectionEntity(entity, entityConfig.attribute, useStatistics, statsPeriod, statsType, directionCompensation, directionLetters);
+            return new WindDirectionEntity(entity, entityConfig.attribute, useStatistics, statsPeriod, directionCompensation, directionLetters);
         }
         throw new Error("WindRoseCard: No wind_direction_entity configured.");
     }

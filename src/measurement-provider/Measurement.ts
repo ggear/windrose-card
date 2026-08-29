@@ -13,49 +13,46 @@ export class Measurement {
 
     public static fromStats: (data: StatisticsData) => Measurement;
 
-    public static init(attribute: string | undefined, stats: boolean, type: string | undefined) {
-        if (stats) {
-            switch (type) {
-                case "min":
-                    Measurement.fromStats = (stat: StatisticsData) => {
-                        return new Measurement(stat.start / 1000, stat.end / 1000, stat.min);
-                    };
-                    Measurement.getStatsValue = (stat: StatisticsData) => {
-                        return stat.min;
-                    };
-                    break;
-                case "max":
-                    Measurement.fromStats = (stat: StatisticsData) => {
-                        return new Measurement(stat.start / 1000, stat.end / 1000,stat.max);
-                    };
-                    Measurement.getStatsValue = (stat: StatisticsData) => {
-                        return stat.max
-                    };
-                    break;
-                case "mean":
-                    Measurement.fromStats = (stat: StatisticsData) => {
-                        return new Measurement(stat.start / 1000, stat.end / 1000, stat.mean);
-                    };
-                    Measurement.getStatsValue = (stat: StatisticsData) => {
-                        return stat.mean;
-                    };
-                    break;
+    public static initStats(statData: StatisticsData) {
+
+        if (statData.min) {
+            Measurement.fromStats = (stat: StatisticsData) => {
+                return new Measurement(stat.start / 1000, stat.end / 1000, stat.min);
+            };
+            Measurement.getStatsValue = (stat: StatisticsData) => {
+                return stat.min;
+            };
+        } else if (statData.max) {
+            Measurement.fromStats = (stat: StatisticsData) => {
+                return new Measurement(stat.start / 1000, stat.end / 1000, stat.max);
+            };
+            Measurement.getStatsValue = (stat: StatisticsData) => {
+                return stat.max
+            };
+        } else if (statData.mean) {
+            Measurement.fromStats = (stat: StatisticsData) => {
+                return new Measurement(stat.start / 1000, stat.end / 1000, stat.mean);
+            };
+            Measurement.getStatsValue = (stat: StatisticsData) => {
+                return stat.mean;
+            };
+        }
+    }
+
+    public static initHistory(attribute: string | undefined) {
+        if (attribute) {
+            Measurement.fromHistory = (history: HistoryData) => {
+                return new Measurement(history.lu, history.lu, history.a[attribute]);
+            };
+            Measurement.getHistoryValue = (history: HistoryData) => {
+                return history.a[attribute];
             }
         } else {
-            if (attribute) {
-                Measurement.fromHistory = (history: HistoryData) => {
-                    return new Measurement(history.lu, history.lu, history.a[attribute]);
-                };
-                Measurement.getHistoryValue = (history: HistoryData) => {
-                    return history.a[attribute];
-                }
-            } else {
-                Measurement.fromHistory = (history: HistoryData) => {
-                    return new Measurement(history.lu, history.lu, history.s);
-                };
-                Measurement.getHistoryValue = (history: HistoryData) => {
-                    return history.s;
-                }
+            Measurement.fromHistory = (history: HistoryData) => {
+                return new Measurement(history.lu, history.lu, history.s);
+            };
+            Measurement.getHistoryValue = (history: HistoryData) => {
+                return history.s;
             }
         }
     }
