@@ -1,3 +1,10 @@
+### 2.7.0
+
+Fix, feature change statistics type config:
+- Type min and mix is not supported by wind direction sensors, removed config options. Type mean is always used.
+  More info, see readme paragraph Home Assistant data retention
+
+
 ### v2.6.0
 Feature:
 - Adds the possibility to use min and max Home Assistant statistics data. Before only the mean value was used.  

@@ -40,8 +40,7 @@ export class HAMeasurementProvider {
                     measurementHolder.directionMeasurements = HAMeasurementProvider.parseStatsMeasurements(
                         results[0][this.directionEntity.entity],
                         this.directionEntity.entity,
-                        false,
-                        this.directionEntity.statisticsType!);
+                        false);
                 } else {
                     measurementHolder.directionMeasurements = HAMeasurementProvider.parseHistoryMeasurements(
                         results[0][this.directionEntity.entity],
@@ -56,8 +55,7 @@ export class HAMeasurementProvider {
                         measurementHolder.addSpeedMeasurements(HAMeasurementProvider.parseStatsMeasurements(
                             results[i + 1][speedEntity.entity],
                             speedEntity.entity,
-                            true,
-                            speedEntity.statisticsType!));
+                            true));
                     } else {
                         const measurements = HAMeasurementProvider.parseHistoryMeasurements(
                             results[i + 1][speedEntity.entity],
@@ -81,7 +79,7 @@ export class HAMeasurementProvider {
         if (historyData === undefined || historyData.length === 0) {
             throw new Error('No history data found for entity ' + entity);
         }
-        Measurement.init(attribute, false, undefined);
+        Measurement.initHistory(attribute);
         for (const data of historyData) {
             const value = Measurement.getHistoryValue(data);
             if (numeric) {
@@ -106,13 +104,13 @@ export class HAMeasurementProvider {
         return measurements;
     }
 
-    private static parseStatsMeasurements(statisticsData: StatisticsData[], entity: string, numeric: boolean, statsType: string): Measurement[] {
+    private static parseStatsMeasurements(statisticsData: StatisticsData[], entity: string, numeric: boolean): Measurement[] {
         const measurements: Measurement[] = [];
         let ignoreCounter = 0;
         if (statisticsData === undefined || statisticsData.length === 0) {
             throw new Error('No statistics data found for entity ' + entity);
         }
-        Measurement.init(undefined, true, statsType);
+        Measurement.initStats(statisticsData[0]);
         for (const data of statisticsData) {
             const value = Measurement.getStatsValue(data);
             if (numeric) {
